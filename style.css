@@ -449,6 +449,7 @@ body {
 }
 
 .logo-dropdown-wrapper:hover .nav-menu,
+.logo-dropdown-wrapper.active .nav-menu,
 .nav-menu:hover {
     opacity: 1;
     visibility: visible;
