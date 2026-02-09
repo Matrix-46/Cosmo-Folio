@@ -21,13 +21,13 @@ A modern, minimalistic, and high-performance personal portfolio website built wi
 
 ## 📸 Screenshots
 ### Home Section & Navigation
-![Home Section](screenshots/hero_section.png)
+![Home Section](screenshots/contact_section.png)
 
 ### Skills & Expertise
 ![Skills Section](screenshots/skills_section.png)
 
 ### Contact & Footer
-![Contact Section](screenshots/contact_section.png)
+![Contact Section](screenshots/hero_section.png)
 
 ## 📂 Featured Projects
 ### 🏋️ [Fit-Guide](https://github.com/Matrix-46/Fit-Guide)
