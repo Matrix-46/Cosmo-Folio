@@ -1,15 +1,16 @@
 // Smooth scroll functionality
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return; // Ignore plain hash links
+
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
+        const target = document.querySelector(targetId);
         if (target) {
             target.scrollIntoView({
                 behavior: 'smooth',
                 block: 'start'
             });
-            // Close mobile menu if open
-            navMenu.classList.remove('active');
         }
     });
 });
@@ -419,14 +420,13 @@ if (logoIcon && logoDropdown) {
     logoIcon.addEventListener('click', (e) => {
         if (window.innerWidth <= 768) {
             e.preventDefault();
-            e.stopPropagation(); // Prevent document click from immediately closing it
+            e.stopPropagation();
             logoDropdown.classList.toggle('active');
         }
     });
 
     // Close dropdown when clicking a nav link
-    const dropdownLinks = logoDropdown.querySelectorAll('.nav-link');
-    dropdownLinks.forEach(link => {
+    logoDropdown.querySelectorAll('.nav-link').forEach(link => {
         link.addEventListener('click', () => {
             logoDropdown.classList.remove('active');
         });
