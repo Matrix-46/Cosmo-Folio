@@ -3,7 +3,7 @@
 A modern, minimalistic, and high-performance personal portfolio website built with vanilla technologies. Featuring a dynamic "Starry Night" particle system, responsive layouts, and a curated showcase of full-stack and AI/ML projects.
 
 ## 🚀 Live Demo
-[View Live Site on Netlify](https://your-site-name.netlify.app) _(Replace with your actual URL)_
+[View Live Site on Netlify](https://cosmo-folio.netlify.app/)
 
 ## 🛠️ Tech Stack
 - **Structure:** Semantic HTML5
