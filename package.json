@@ -1,0 +1,12 @@
+{
+    "name": "portfolio",
+    "version": "1.0.0",
+    "description": "Professional Portfolio",
+    "main": "index.html",
+    "scripts": {
+        "start": "npx -y browser-sync start --server --port 8080 --files \"*.html, *.css, *.js\""
+    },
+    "keywords": [],
+    "author": "Abhinandan. A",
+    "license": "ISC"
+}
