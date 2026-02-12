@@ -418,7 +418,7 @@ const logoIcon = document.querySelector('.logo-icon');
 
 if (logoIcon && logoDropdown) {
     logoIcon.addEventListener('click', (e) => {
-        if (window.innerWidth <= 768) {
+        if (window.innerWidth <= 968) {
             e.preventDefault();
             e.stopPropagation();
             logoDropdown.classList.toggle('active');
