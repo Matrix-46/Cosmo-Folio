@@ -1377,25 +1377,35 @@ body {
     }
 
     .nav-menu {
-        position: fixed;
-        top: 70px;
-        left: -100%;
-        width: 100%;
-        height: calc(100vh - 70px);
-        background: rgba(10, 10, 15, 0.98);
-        backdrop-filter: var(--blur-glass);
+        position: absolute;
+        top: 80px;
+        right: 0;
+        left: auto;
+        width: 220px;
+        height: auto;
+        background: rgba(10, 10, 10, 0.95);
+        backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: var(--border-radius-lg);
         flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        transition: left var(--transition-base);
+        padding: var(--spacing-md);
+        gap: var(--spacing-sm);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        transition: all var(--transition-base);
+        z-index: 1001;
+        box-shadow: var(--shadow-lg), 0 0 30px rgba(0, 0, 0, 0.5);
     }
 
     .logo-dropdown-wrapper.active .nav-menu {
-        left: 0;
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
     }
 
     .nav-toggle {
-        display: flex;
+        display: none !important;
     }
 
     .about-content,
