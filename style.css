@@ -1390,7 +1390,7 @@ body {
         transition: left var(--transition-base);
     }
 
-    .nav-menu.active {
+    .logo-dropdown-wrapper.active .nav-menu {
         left: 0;
     }
 
