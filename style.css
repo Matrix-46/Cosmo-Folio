@@ -448,7 +448,7 @@ body {
     z-index: 1001;
 }
 
-.logo-dropdown-wrapper .nav-menu:hover,
+.logo-dropdown-wrapper:hover .nav-menu,
 .logo-dropdown-wrapper.active .nav-menu {
     opacity: 1;
     visibility: visible;

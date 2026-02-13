@@ -412,17 +412,16 @@ window.addEventListener('scroll', () => {
     }, 50);
 });
 
-// ===== Mobile Dropdown Toggle Logic =====
+// ===== Dropdown Toggle Logic (Works on All Devices) =====
 const logoDropdown = document.querySelector('.logo-dropdown-wrapper');
 const logoIcon = document.querySelector('.logo-icon');
 
 if (logoIcon && logoDropdown) {
     logoIcon.addEventListener('click', (e) => {
-        if (window.innerWidth <= 968) {
-            e.preventDefault();
-            e.stopPropagation();
-            logoDropdown.classList.toggle('active');
-        }
+        // Works on all devices now (desktop and mobile)
+        e.preventDefault();
+        e.stopPropagation();
+        logoDropdown.classList.toggle('active');
     });
 
     // Close dropdown when clicking a nav link
