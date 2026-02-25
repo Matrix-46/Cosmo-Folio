@@ -178,264 +178,73 @@ document.querySelectorAll('.btn').forEach(button => {
     });
 });
 
-// Add cursor glow effect (optional premium feature)
-const cursorGlow = document.createElement('div');
-cursorGlow.style.cssText = `
-    position: fixed;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(20, 184, 166, 0.15) 0%, transparent 70%);
-    pointer-events: none;
-    z-index: 9999;
-    transition: transform 0.2s ease;
-    display: none;
-`;
-document.body.appendChild(cursorGlow);
+// ===== Custom Cursor Logic =====
+const cursorDot = document.querySelector(".cursor-dot");
+const cursorOutline = document.querySelector(".cursor-outline");
 
-document.addEventListener('mousemove', (e) => {
-    cursorGlow.style.left = e.clientX - 10 + 'px';
-    cursorGlow.style.top = e.clientY - 10 + 'px';
-    cursorGlow.style.display = 'block';
+window.addEventListener("mousemove", (e) => {
+    const posX = e.clientX;
+    const posY = e.clientY;
+
+    // Direct Dot position
+    cursorDot.style.left = `${posX}px`;
+    cursorDot.style.top = `${posY}px`;
+
+    // Outline position with smooth lag (CSS transition handles lag)
+    cursorOutline.style.left = `${posX}px`;
+    cursorOutline.style.top = `${posY}px`;
 });
 
-// Hide cursor glow on mobile
-if (window.innerWidth <= 768) {
-    cursorGlow.style.display = 'none';
-}
-
-// Dynamic year in footer
-const footer = document.querySelector('.footer p');
-if (footer) {
-    const currentYear = new Date().getFullYear();
-    footer.innerHTML = footer.innerHTML.replace('2026', currentYear);
-}
-
-// ===== Advanced Particle Background System =====
-class ParticleSystem {
-    constructor() {
-        this.canvas = document.createElement('canvas');
-        this.ctx = this.canvas.getContext('2d');
-        this.particles = [];
-        this.mouse = { x: 0, y: 0 };
-        this.init();
-    }
-
-    init() {
-        this.canvas.style.cssText = `
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-            opacity: 0.6;
-        `;
-        document.querySelector('.home-section').appendChild(this.canvas);
-
-        this.resize();
-        this.createParticles();
-        this.animate();
-
-        window.addEventListener('resize', () => this.resize());
-        document.addEventListener('mousemove', (e) => {
-            this.mouse.x = e.clientX;
-            this.mouse.y = e.clientY;
-        });
-    }
-
-    resize() {
-        this.canvas.width = window.innerWidth;
-        this.canvas.height = window.innerHeight;
-    }
-
-    createParticles() {
-        const particleCount = Math.floor((this.canvas.width * this.canvas.height) / 25000); // Fewer particles
-        for (let i = 0; i < particleCount; i++) {
-            this.particles.push({
-                x: Math.random() * this.canvas.width,
-                y: Math.random() * this.canvas.height,
-                size: Math.random() * 1.5 + 0.5, // Smaller particles
-                speedX: (Math.random() - 0.5) * 0.3,
-                speedY: (Math.random() - 0.5) * 0.3,
-                color: this.getRandomColor()
-            });
-        }
-    }
-
-    getRandomColor() {
-        // Only teal for minimalism
-        const alpha = Math.random() * 0.2 + 0.1; // More transparent
-        return `rgba(20, 184, 166, ${alpha})`;
-    }
-
-    animate() {
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
-        this.particles.forEach((particle, index) => {
-            // Update position
-            particle.x += particle.speedX;
-            particle.y += particle.speedY;
-
-            // Mouse interaction
-            const dx = this.mouse.x - particle.x;
-            const dy = this.mouse.y - particle.y;
-            const distance = Math.sqrt(dx * dx + dy * dy);
-
-            if (distance < 150) {
-                particle.x -= dx / distance * 2;
-                particle.y -= dy / distance * 2;
-            }
-
-            // Wrap around screen
-            if (particle.x < 0) particle.x = this.canvas.width;
-            if (particle.x > this.canvas.width) particle.x = 0;
-            if (particle.y < 0) particle.y = this.canvas.height;
-            if (particle.y > this.canvas.height) particle.y = 0;
-
-            // Draw particle
-            this.ctx.beginPath();
-            this.ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-            this.ctx.fillStyle = particle.color;
-            this.ctx.fill();
-        });
-
-        requestAnimationFrame(() => this.animate());
-    }
-}
-
-// Initialize particle system on load
-window.addEventListener('load', () => {
-    if (window.innerWidth > 768) { // Only on desktop
-        new ParticleSystem();
-    }
+// Cursor Hover Effects
+document.querySelectorAll('a, button, .project-card, .skill-category').forEach(el => {
+    el.addEventListener('mouseenter', () => cursorOutline.classList.add('hover'));
+    el.addEventListener('mouseleave', () => cursorOutline.classList.remove('hover'));
 });
 
-// ===== Animated Background Gradient =====
-const homeBackground = document.querySelector('.home-background');
-if (homeBackground) {
-    homeBackground.style.backgroundSize = '400% 400%';
-    homeBackground.style.animation = 'gradientShift 15s ease infinite';
-}
+// ===== Magnetic Interaction =====
+document.querySelectorAll('.btn, .logo-icon, .skill-icon, .activity-icon, .social-link').forEach(el => {
+    el.addEventListener('mousemove', (e) => {
+        const rect = el.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
 
-// ===== Skill Tags Advanced Interaction =====
-document.querySelectorAll('.skill-tag').forEach((tag, index) => {
-    tag.style.animationDelay = `${index * 0.05}s`;
-
-    tag.addEventListener('mouseenter', function () {
-        this.style.animation = 'pulse 0.5s ease';
+        el.style.transform = `translate(${x * 0.12}px, ${y * 0.12}px)`;
     });
 
-    tag.addEventListener('animationend', function () {
-        this.style.animation = '';
+    el.addEventListener('mouseleave', () => {
+        el.style.transform = '';
     });
 });
 
-// ===== Stat Counter Animation =====
-function animateCounter(element, target) {
-    let current = 0;
-    const isFloat = !Number.isInteger(target);
-    const suffix = element.getAttribute('data-suffix') || '';
-    const increment = target / 50;
-
-    const timer = setInterval(() => {
-        current += increment;
-        if (current >= target) {
-            element.textContent = (isFloat ? target.toFixed(2) : target) + suffix;
-            clearInterval(timer);
-        } else {
-            element.textContent = (isFloat ? current.toFixed(2) : Math.floor(current)) + suffix;
-        }
-    }, 30);
-}
-
-// Trigger counter animation when stat items are in view
-const statObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const number = entry.target.querySelector('.stat-number');
-            const targetValue = parseFloat(number.textContent);
-            if (!isNaN(targetValue)) {
-                animateCounter(number, targetValue);
-                statObserver.unobserve(entry.target);
-            }
-        }
-    });
-}, { threshold: 0.5 });
-
-document.querySelectorAll('.stat-item').forEach(item => {
-    statObserver.observe(item);
-});
-
-// ===== Project Cards 3D Tilt Effect =====
-document.querySelectorAll('.project-card').forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
+// ===== Skill Category Mouse Gradient =====
+document.querySelectorAll('.skill-category').forEach(el => {
+    el.addEventListener('mousemove', (e) => {
+        const rect = el.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
 
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-
-        const rotateX = (y - centerY) / 20;
-        const rotateY = (centerX - x) / 20;
-
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
-    });
-
-    card.addEventListener('mouseleave', () => {
-        card.style.transform = '';
+        el.style.setProperty('--mouse-x', `${x}px`);
+        el.style.setProperty('--mouse-y', `${y}px`);
     });
 });
 
-// ===== Skill Category Glow Effect =====
-document.querySelectorAll('.skill-category').forEach((category, index) => {
-    const glowColors = ['--shadow-glow', '--shadow-glow-sky', '--shadow-glow-mustard'];
-    const glowColor = glowColors[index % glowColors.length];
+// ===== Enhanced Staggered Reveal =====
+const revealObserverOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+};
 
-    category.addEventListener('mouseenter', function () {
-        this.style.boxShadow = `var(--shadow-xl), var(${glowColor})`;
+const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+            setTimeout(() => {
+                entry.target.classList.add('revealed');
+            }, index * 100); // Stagger effect
+        }
     });
-});
+}, revealObserverOptions);
 
-// ===== Smooth Color Transitions on Scroll =====
-let scrollTimeout;
-window.addEventListener('scroll', () => {
-    document.body.style.setProperty('--scroll-progress', window.pageYOffset / (document.body.scrollHeight - window.innerHeight));
-
-    clearTimeout(scrollTimeout);
-    scrollTimeout = setTimeout(() => {
-        // Add subtle effects based on scroll position
-        const scrollPercent = window.pageYOffset / (document.body.scrollHeight - window.innerHeight);
-        document.documentElement.style.setProperty('--dynamic-hue', scrollPercent * 20);
-    }, 50);
-});
-
-// ===== Dropdown Toggle Logic (Works on All Devices) =====
-const logoDropdown = document.querySelector('.logo-dropdown-wrapper');
-const logoIcon = document.querySelector('.logo-icon');
-
-if (logoIcon && logoDropdown) {
-    logoIcon.addEventListener('click', (e) => {
-        // Works on all devices now (desktop and mobile)
-        e.preventDefault();
-        e.stopPropagation();
-        logoDropdown.classList.toggle('active');
-    });
-
-    // Close dropdown when clicking a nav link
-    logoDropdown.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', () => {
-            logoDropdown.classList.remove('active');
-        });
-    });
-}
-
-// Close dropdown when clicking outside
-document.addEventListener('click', (e) => {
-    if (logoDropdown && !logoDropdown.contains(e.target)) {
-        logoDropdown.classList.remove('active');
-    }
+document.querySelectorAll('section, .project-card, .skill-category, .stat-item').forEach(el => {
+    revealObserver.observe(el);
 });
 
