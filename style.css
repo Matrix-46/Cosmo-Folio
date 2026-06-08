@@ -885,6 +885,14 @@ body {
     background-repeat: no-repeat;
 }
 
+.bg-taskflow {
+    background-image: url('images/Taskflow.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #ffffff;
+}
+
 .project-overlay {
     position: absolute;
     top: 0;
@@ -1158,7 +1166,8 @@ body {
     transform: translateX(10px);
 }
 
-.edu-date {
+.edu-date,
+.cert-date {
     font-size: var(--font-size-xs);
     font-weight: 600;
     color: var(--color-accent);
