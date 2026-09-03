@@ -1659,4 +1659,42 @@ section,
     100% {
         stroke-opacity: 0.6;
     }
+}/* ===== Certificates Gallery ===== */
+.certificates-gallery {
+    background: transparent;
+    overflow: hidden;
+    padding: var(--spacing-2xl) 0;
+}
+.scrolling-wrapper {
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+    width: 100%;
+    display: flex;
+}
+.scrolling-content {
+    display: flex;
+    animation: scroll-marquee 30s linear infinite;
+}
+.scrolling-wrapper:hover .scrolling-content {
+    animation-play-state: paused;
+}
+.scrolling-content img {
+    height: 250px;
+    width: auto;
+    margin: 0 15px;
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition-base);
+    object-fit: cover;
+    border: 2px solid var(--color-border);
+}
+.scrolling-content img:hover {
+    transform: scale(1.05);
+    border-color: var(--color-accent);
+    box-shadow: var(--shadow-glow);
+}
+@keyframes scroll-marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
 }
